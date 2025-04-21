@@ -1,0 +1,228 @@
+<!-- missing-text -->
+
+Integration Guide | PUBLIC 2024-12-24
+
+Integrating Joule with SAP Solutions
+
+<!-- missing-text -->
+
+Content
+
+<!-- missing-text -->
+
+<!-- missing-text -->
+
+1 Introduction
+
+This guide provides detailed information to system administrators or technical consultants on how to set up Joule and the integration between Joule and other SAP products.
+
+<!-- missing-text -->
+
+ · Check the setup requirements for your SAP Solution [page 6]
+
+ · Follow the Joule onboarding process to get Joule ready fo rintegrating your SAP Solution [page 7]
+
+ · Integrate your SAP Solution with Joule to use the Joule capabilities your solution offers [page 19]
+
+ · Set up document grounding to upload documents to the Joule service [page 73]
+
+2 Initial Setup
+
+Learn about the options for setting up Joule for productive purposes.
+
+Before you perform the setup instructions, it's important to know which path you should take. Here are the different ways that Joule is available.
+
+Joule is already available. I don't have to do anything.
+
+You can tell that this applies to you when you see the Joule icon  inside your product. For example, in the SAP BTP cockpit, just click the Joule icon and start working with Joule.
+
+I already have a BTP platform set up. I just need to run the Joule booster.
+
+In this situation, you already have a global account, subaccounts, and entitlements set up. You also have users onboarded and trust set up to support your platform. Since the BTP platform is ready, you simply need to initiate the booster to prepare Joule and then configure the trusted domains.
+
+Instructions :
+
+ · Make sure you Configure Trust to the Identity Authentication Tenant [page 10] and Configure User Attributes for Joule from the Identity Directory [page 11] before running the Joule booster.
+
+ · Run the Joule Booster [page 12]
+
+I need to set up the BTP platform first and then I can onboard Joule.
+
+If you haven't set up a BTP platform, then you'll need to set up BTP first. This involves administrative actions in the SAP BTP cockpit. After you set up the platform, you can onboard Joule.
+
+Instructions :
+
+ · Prerequisites [page 7]
+
+ · Joule Onboarding Guide [page 7]
+
+Related Information
+
+Joule Onboarding Guide [page 7] Integration Guide [page 4]
+
+3 Joule Onboarding Guide
+
+A step by step guide for setting up Joule and integrating it with SAP solutions.
+
+Overview of the Onboarding Process
+
+Joule includes multiple components that must be integrated for a seamless working solution. The onboarding process consists of the following steps:
+
+Prerequisites [page 7]
+
+Prerequisites for Joule Onboarding.
+
+Configure Trust to the Identity Authentication Tenant [page 10]
+
+Use your SAP Cloud Identity Services - Identity Authentication tenant as an Identity Provider or a proxy to your own Identity Provider hosting your business users.
+
+Configure User Attributes for Joule from the Identity Directory [page 11]
+
+A step by step guide to configure user attributes from the identity directory.
+
+Run the Joule Booster [page 12]
+
+Instructions for running the booster to set up Joule.
+
+Configure Trusted Domains in Identity Authentication [page 15]
+
+You need to add the domain of the integration product as trusted domain in the Identity Authentication.
+
+Configure Trusted Domain in SAP BTP [page 16]
+
+You can add, configure and save newly created trusted domain.
+
+Constraints for Joule [page 16]
+
+All constraints applicable to Joule are listed in this section. These constrains will provide you better understandability of Joule.
+
+Unsubscribe from Joule [page 17]
+
+This section provides instructions on how to unsubscribe and delete a Joule subscription and service instance. Use it to efficiently manage your subscriptions and free up resources when no longer needed.
+
+Troubleshooting [page 18]
+
+This section contains information that helps you troubleshoot problems in Joule.
+
+3.1 Prerequisites
+
+Prerequisites for Joule Onboarding.
+
+Before completing the Joule onboarding tasks, you'll need to ensure you've met the required prerequisites for both your product and for Joule.
+
+SAP Product Prerequisites
+
+ · You have a license for an SAP product that supports Joule integration (such as SAP SuccessFactors, SAP S/4HANA Cloud Private Edition. etc) in one of the supported data centers, as Joule is an embedded application that is integrated with SAP products. For more information, see Data Centers Supported by Joule.
+
+ Note
+
+ · Joule is available with SAP Start under Early Adopter Care program only.
+
+ · If you want to integrate Joule with SAP Start, you must have a license of at least one SAP product that supports Joule integration.
+
+ · You have integrated the SAP product with Identity Authentication as Joule leverages the IAS setup of the SAP product for user login.
+
+ · You have an enterprise global account on SAP BTP as Joule is an SAP BTP based application and relies on SAP BTP services. For more information, see Enterprise Accounts.
+
+ Note
+
+If you already have a global account in SAP BTP, Joule entitlements can be added in the same global account.
+
+Joule Specific Prerequisites
+
+ · You have the entitlements for Cloud Identity Services- Identity Authentication and Identity Provisioning. Joule uses the Identity Authentication for user login and Identity Provisioning service to handle provisioning of identities and their authorizations to various business applications (SAP SuccessFactors, Identity Authentication Service Tenant, SAP Build Work Zone, standard edition). For more information, see Tenant Models and licensing information for Identity Authentication and Identity Provisioning.
+
+ Note
+
+Please contact your account executive if any of the entitlements are not available in your global account.
+
+ · Verify that your global account is configured with the following entitlements. For more information, see Managing Entitlements and Quotas Using the Cockpit.
+
+<!-- missing-text -->
+
+<!-- missing-text -->
+
+ Note
+
+All SAP BTP Global accounts already include entitlements for foundation plan of SAP Build Work Zone, standard edition. If you already have a license for standard plan of SAP Build Work Zone, standard edition, you can continue to use the same for Joule. Make sure that you choose the same plan for SAP Build Work Zone, standard edition application and service.
+
+Joule uses navigation service component of SAP Build Work Zone, standard edition to resolve intent based navigation targets and configure additional content providers.
+
+ · You have created a subaccount in your global account using the SAP BTP cockpit for provisioning Joule. A single Joule subscription can be integrated into multiple SAP products like SAP SuccessFactors, SAP S/4HANA Cloud Private Edition, however, one subscription of the Joule application can only be integrated with one tenant of an SAP product. This means you cannot include multiple systems of the same product in one Joule formation.
+
+You must ensure that there is one IAS tenant per single independent entity and operate every single independent entity from its own dedicated BTP sub-account.
+
+ Tip
+
+For more information, see Create a Subaccount in the Cloud Foundry Environment.
+
+Related Information
+
+SAP BTP Onboarding SAP Cloud Identity Services SAP Build Work Zone, standard edition Joule Onboarding Guide [page 7]
+
+3.2 Configure Trust to the Identity Authentication Tenant
+
+Use your SAP Cloud Identity Services - Identity Authentication tenant as an Identity Provider or a proxy to your own Identity Provider hosting your business users.
+
+Prerequisites
+
+ · You have subaccount administrator permissions. For more information, see Managing Subaccounts Using the Cockpit.
+
+ · You have a tenant of SAP Cloud Identity Services.
+
+ For more information, see Tenant Model and Licensing in the documentation for Identity Authentication.
+
+ · The Identity Authentication tenant is associated with the customer IDs of the relevant global account of SAP BTP.
+
+ For more information, see Reuse SAP Cloud Identity Services Tenants for Different Customer IDs in the documentation for Identity Authentication.
+
+ · You must use the same Identity Authentication tenant for all SAP applications that are included in the Joule formation.
+
+Procedure
+
+ 1. In the SAP BTP cockpit, go to your subaccount and choose Security Trust Configuration
+
+.
+
+<!-- missing-text -->
+
+ 2. Choose Establish Trust .
+
+ The Configure Tenant wizard opens.
+
+ 3. Choose the Identity Authentication tenant. The Identity Providers listed are the Identity Authentication tenants associated with your customer ID. Click Next .
+
+ 4. Choose the domain configured with the Identity Authentication tenant and continue with Next .
+
+ Note
+
+For single-sign on to work, the domain of the Identity Authentication tenant must be same as the corresponding SAP system trust setup.
+
+ 5. You can change the name and the description of the tenant, display and change the origin key, and provide a link text for user logon (see Using Multiple Identity Providers from the Same Subaccount). Click Next .
+
+ 6. Review your configuration and confirm using Finish .
+
+Related Information
+
+Establish Trust and Federation Between SAP Authorization and Trust Management Service and Identity Authentication
+
+3.3 Configure User Attributes for Joule from the Identity Directory
+
+A step by step guide to configure user attributes from the identity directory.
+
+ 1. Sign in to the administration console for SAP Cloud Identity Services.
+
+ 2. Under Applications and Resources , choose the Applications tile.
+
+ 3. Select the application which was automatically created in the previous step.
+
+ 4. If you don't have a created application in your list, you can create one. For more information, see Create a New Application.
+
+ 5. Choose the Trust tab.
+
+ 6. Under SINGLE SIGN-ON , choose Attributes .
+
+ 7. Under the Self-defined Attributes section, choose Expand All to view all the information about the user attributes. Ensure that the following SAML Assertion Attributes are present:
+
+
+
